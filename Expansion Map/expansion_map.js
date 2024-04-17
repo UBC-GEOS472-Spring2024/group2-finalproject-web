@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/berry714/472-final-project/main/all_stops_expansion.geojson'
         });
-
+        // Add a layer for skytrain stops, symbolised by existing and expansion projects
         map.addLayer({
             id: 'stops',
             type: 'circle',
@@ -56,14 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
         
             const properties = e.features[0].properties;
         
-            // Check if completion_date exists and set the content
-            const completionDate = properties.completion_date ? properties.completion_date : 'N/A';
+            // Check if completionDate exists and set the content
+            const completionDate = properties.completionDate ? properties.completionDate : 'N/A';
         
             // Popup content
             const popupContent = `
                 <div style="max-height: 300px; overflow-y: auto;">
                     <h3><strong>${properties.stop_name}</strong></h3>
-                    <p>Estimated Project Completion Date: <strong>${completionDate}</strong></p>
+                    <p>Estimated Project Completion: <strong>${completionDate}</strong></p>
                 </div>
             `;
         
@@ -76,8 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         map.on('mouseleave', 'stops', function() {
             map.getCanvas().style.cursor = '';
             popup.remove();
-        });        
-
+        });
 
         // Set the button states to reflect active zones
         document.querySelectorAll('.zone-button').forEach(button => {

@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    mapboxgl.accessToken = 'pk.eyJ1Ijoiam9uYXRoYW53ZXN0YmVycnkiLCJhIjoiY2x0OWR4Z3k4MGg2dTJpcDlwc2o0ZXFvayJ9.Muok1VdFLcaVekq6lWlzrA';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiazYyMjEiLCJhIjoiY2xzc2VyczZiMTJnMTJsbnlqYmY0eDBidCJ9.qYmhavVJJbDDzeyoAuTXeQ';
         
     const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/jonathanwestberry/cluuonvjx005301q0b0m32rko',
+        style: 'mapbox://styles/k6221/cltxr4dy101ix01r5elg32b1a',
         center: [-123.14, 49.26],
         zoom: 11
     });

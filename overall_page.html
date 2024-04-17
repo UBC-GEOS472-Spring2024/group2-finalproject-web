@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #Current {
+        position: absolute;
+        top: 4%;
+        left: 0;
+        width: 48%;
+        height: 42%;
+        background-color: white;
+        padding: 10px;
+      }
+
+      #Isochrones {
+        position: absolute;
+        top: 4%;
+        right: 0;
+        width: 48%;
+        height: 42%;
+        background-color: white;
+        padding: 10px;
+      }
+
+      #Heatmap {
+        position: absolute;
+        top: 52%;
+        left: 0;
+        width: 48%;
+        height: 42%;
+        background-color: white;
+        padding: 10px;
+      }
+
+      #Future {
+        position: absolute;
+        top: 52%;
+        right: 0;
+        width: 48%;
+        height: 42%;
+        background-color: white;
+        padding: 10px;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Group 2 Transit Map</h1>
+
+    <div id="Current">
+      <p>Public Transport Visualization</p>
+      <iframe src="current_transportation.html"> </iframe>
+    </div>
+
+    <div id="Isochrones">
+      <p>Isochrones of Travel Time</p>
+      <iframe src="/isochrone_map.html"> </iframe>
+    </div>
+
+    <div id="Heatmap">
+      <p>Heatmap of Bus Stops</p>
+      <iframe src="/map_visual.html"> </iframe>
+    </div>
+
+    <div id="Future">
+      <p>Future Transit Expansion</p>
+      <iframe src="Expansion Map\expansion_map.html"> </iframe>
+    </div>
+  </body>
+</html>

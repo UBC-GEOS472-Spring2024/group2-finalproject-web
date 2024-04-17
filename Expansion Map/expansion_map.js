@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     'ZN 2', '#007cbf',  // Blue for operational SkyTrain stations
                     'ZN 3', '#007cbf',  // Blue for operational SkyTrain stations
                     'ZN Broadway', '#32CD32',  // Green for the Broadway Plan expansion
-                    'ZN UBC', '#800080',  // Purple for the UBC expansion
+                    'ZN UBC', '#ff8c39',  // Orange for the UBC expansion
                     '#CCCCCC'
                 ],
                 'circle-radius': [
@@ -51,33 +51,33 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         map.on('mouseenter', 'stops', function(e) {
+            // Change cursor to pointer
             map.getCanvas().style.cursor = 'pointer';
-        });
-
-        map.on('mouseleave', 'stops', function() {
-            map.getCanvas().style.cursor = '';
-            popup.remove();
-        });
-
-        map.on('click', 'stops', function (e) {
+        
             const properties = e.features[0].properties;
+        
+            // Check if completion_date exists and set the content
+            const completionDate = properties.completion_date ? properties.completion_date : 'N/A';
+        
+            // Popup content
             const popupContent = `
                 <div style="max-height: 300px; overflow-y: auto;">
                     <h3><strong>${properties.stop_name}</strong></h3>
+                    <p>Estimated Project Completion Date: <strong>${completionDate}</strong></p>
                 </div>
             `;
-            const popup = new mapboxgl.Popup()
-                .setLngLat(e.features[0].geometry.coordinates)
-                .setHTML(popupContent)
-                .addTo(map);
-
-            setTimeout(() => {
-                const popupContentDiv = document.querySelector('.mapboxgl-popup-content > div');
-                if (popupContentDiv) {
-                    popupContentDiv.scrollTop = 0;
-                }
-            }, 10); // Small delay to ensure scrolling works properly.
+        
+            // Display the popup
+            popup.setLngLat(e.features[0].geometry.coordinates)
+                 .setHTML(popupContent)
+                 .addTo(map);
         });
+        
+        map.on('mouseleave', 'stops', function() {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });        
+
 
         // Set the button states to reflect active zones
         document.querySelectorAll('.zone-button').forEach(button => {

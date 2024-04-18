@@ -26,4 +26,5 @@ https://ubc-geos472-spring2024.github.io/group2-finalproject-web/map_visual.html
 
 The Map of Future expansion:
 
-https://ubc-geos472-spring2024.github.io/group2-finalproject-web/Expansion%20Map/expansion_map.html![Expansion](image/Expansion.PNG)
+https://ubc-geos472-spring2024.github.io/group2-finalproject-web/Expansion%20Map/expansion_map.html
+![Expansion](image/Expansion.PNG)

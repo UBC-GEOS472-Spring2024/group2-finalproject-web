@@ -1,74 +1,621 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <style>
-      #Current {
-        position: absolute;
-        top: 4%;
-        left: 0;
-        width: 48%;
-        height: 42%;
-        background-color: white;
-        padding: 10px;
-      }
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
 
-      #Isochrones {
-        position: absolute;
-        top: 4%;
-        right: 0;
-        width: 48%;
-        height: 42%;
-        background-color: white;
-        padding: 10px;
-      }
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+.md-alert.md-alert-note { border-left-color: rgb(9, 105, 218); }
+.md-alert.md-alert-important { border-left-color: rgb(130, 80, 223); }
+.md-alert.md-alert-warning { border-left-color: rgb(154, 103, 0); }
+.md-alert.md-alert-tip { border-left-color: rgb(31, 136, 61); }
+.md-alert.md-alert-caution { border-left-color: rgb(207, 34, 46); }
+.md-alert { padding: 0px 1em; margin-bottom: 16px; color: inherit; border-left: 0.25em solid rgb(0, 0, 0); }
+.md-alert-text-note { color: rgb(9, 105, 218); }
+.md-alert-text-important { color: rgb(130, 80, 223); }
+.md-alert-text-warning { color: rgb(154, 103, 0); }
+.md-alert-text-tip { color: rgb(31, 136, 61); }
+.md-alert-text-caution { color: rgb(207, 34, 46); }
+.md-alert-text { font-size: 0.9rem; font-weight: 700; }
+.md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
+.md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
 
-      #Heatmap {
-        position: absolute;
-        top: 52%;
-        left: 0;
-        width: 48%;
-        height: 42%;
-        background-color: white;
-        padding: 10px;
-      }
 
-      #Future {
-        position: absolute;
-        top: 52%;
-        right: 0;
-        width: 48%;
-        height: 42%;
-        background-color: white;
-        padding: 10px;
-      }
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
 
-      iframe {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Group 2 Transit Map</h1>
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
 
-    <div id="Current">
-      <p>Public Transport Visualization</p>
-      <iframe src="current_transportation.html"> </iframe>
-    </div>
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
 
-    <div id="Isochrones">
-      <p>Isochrones of Travel Time</p>
-      <iframe src="isochrone_map.html"> </iframe>
-    </div>
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
 
-    <div id="Heatmap">
-      <p>Heatmap of Bus Stops</p>
-      <iframe src="map_visual.html"> </iframe>
-    </div>
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
 
-    <div id="Future">
-      <p>Future Transit Expansion</p>
-      <iframe src="Expansion Map\expansion_map.html"> </iframe>
-    </div>
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    pre {
+        page-break-inside: avoid;
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.mac-os #write{
+    caret-color: AccentColor;
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+
+</style><title></title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><p><span>Mapping The UBC Commute</span></p><ol><li><p><strong><span>Introduction</span></strong></p></li></ol><p><span>The University of British Columbia has a large and diverse student body, with students from many different backgrounds and ethnicities studying a range of subjects. The one thing that all these students have in common? Everyone hates commuting to campus, and everyone loves to complain about it. This project intends to get a better understanding of the UBC student commute through intentional mapping. Through our investigation, we explore the following questions, what areas of Vancouver and the Lower Mainland have the highest student populations, and how well are these areas served by transit? How could the system be improved--for example, with the proposed extension of the Skytrain line, currently under construction underneath Broadway and terminating at Arbutus Street? We hope to uncover what populations of students face the longest commutes and potential ways that transit to UBC could be improved in a more equitable and accessible manner. Though the University has built several new multistory student residences on campus in recent years, such as the Brock Commons and Exchange residences, the demand for housing on campus far outstrips supply (Vescera, 2018). Students may spend months waiting for a spot in an on-campus residence. As a result, the majority of the student body lives elsewhere in the Lower Mainland. In 2018, 75% of the UBC student body were commuters (Student Services, 2019). Living off-campus comes with its challenges. Pricey real estate and rigid single-family home zoning in neighbourhoods close to UBC, such as West Point Grey and Dunbar, result in there being few affordable rental units in these neighbourhoods (Nguyen, 2017). As a result, many students are forced to settle for housing quite far from campus and must endure long commutes--by bus, SkyTrain, bike, or private vehicle--to attend class. Other students live with their families to save money, but the tradeoff may be a long commute from their family&#39;s home to school. Students have lamented that these long commutes negatively affect their academic and social lives (Vescera, 2018). Time spent commuting could otherwise be used to study, sleep, spend time with friends and family, engage in extracurriculars, exercise, or attend events on or off campus. Students with especially long commutes have reported that the Translink schedule limits their ability to spend time late in the evening on campus and attend social events because many buses stop running at a certain hour (Vescera, 2018).</span></p><ol><li><p><strong><span>Current Challenges</span></strong></p></li></ol><p><span>UBC&#39;s 2022 Transportation Status Report states that in Fall of 2022, 49% of trips to and from campus were made using public transit, with an additional 1% of trips made on foot or on a bike. UBC&#39;s goal is that by 2040, at least two-thirds of trips to and from campus will be made using one of these three modes, and at least 50% of trips will be made using public transit. But as it stands, UBC student commuters face significant barriers and inconveniences using public transit (University of British Columbia - Vancouver Campus, 2022).</span></p><p><span>Map of Isochrones of Travel Time</span></p><iframe src=" https://ubc-geos472-spring2024.github.io/group2-finalproject-web/isochrone_map.html" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe><p><em><span>About the Isochrone Map:</span></em></p><p><span>This map shows how far you can travel to or from UBC using transit within a certain period of time. Time increments are 15, 30, 45, 60, and 90 minutes. These isochrones were calculated for peak travel times: arriving at UBC at 8:30 am on a weekday, and departing UBC at 5:00 pm on a weekday. Toggle the isochrones on and off to compare travel distances for different time intervals.</span></p><ol><li><p><strong><span>Current Public Transit Infrastructure</span></strong></p></li></ol><p><strong><span>Existing Public Transit Network Overview:</span></strong></p><p><span>Currently, buses are the only available public transit option to get to UBC. Although 11 different lines (4, 9, 14, N17, 25, 33, 44, 49, 84, 99, and R4) are currently available, bus delays adversely affect students taking public transit. TransLink reports that these lines are some of the most delayed lines amongst bus routes operated by Translink (Translink, 2023). For example, 9, 49, 99, and R4 are the most delayed lines despite the high number of daily passengers. Students taking these buses to get to UBC face significant challenges due to these delays, including being late for classes, appointments, and other commitments. It can also cause added stress and uncertainty about arrival times, leading to low student productivity and lower public transit usage. Since the cause of the most delays is congestion, providing alternative transit modes instead of increasing the number of buses is a much-needed solution. Addressing these delays and providing reliable public transit options to UBC is crucial for achieving UBC&#39;s high public transit usage goal and meeting students&#39; needs. </span></p><p><span>Map of public transport visualization</span></p><iframe src=" https://ubc-geos472-spring2024.github.io/group2-finalproject-web/current_transportation.html" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe><p>&nbsp;</p><p><span>About the Current Transportation Map</span></p><p><span>This map shows Translink’s current extent of public transit as of March 22, 2024. Based on their modes, types, or lines, different colours are assigned. </span></p><p><strong><span>Transit Accessibility and Frequency of Bus Service:</span></strong></p><p><span>Despite the high delay of bus lines, the frequency of buses stopping at the Commercial-Broadway station is fairly high. While waiting for buses at the Commercial-Broadway station at traffic peak, people may find the waiting time between two buses might be less than two minutes. The timetable provided by Translink (2024) also suggests that this station maintains a high level of frequency throughout the whole day. From 6:30 to 18:00, 99 buses arrive at 2-5 minute intervals for this stop, and at less busy times, this bus still has 10-minute intervals departing from this stop (Translink, 2024). R4 is less frequent than the 99 buses, but it also maintains a high departure frequency, of 5-8 minutes from 7:30 to 18:00, and 10-15 minutes at other times. These two bus lines are two essential for students who use SkyTrain services because they have fewer stops and relatively higher speeds compared to the 9 and 49. The benefit brought by the high frequency of buses is that students do not need to worry about missing the bus. However, the high frequency of buses (especially the 99), reflects the even higher demand for rapid transit to UBC’s campus.</span></p><p><span>Translink does not publish the standard they designed their bus frequency, but we can refer to the information exposed by New York’s public transition to indicate how TransLink designed Vancouver’s public transit network. According to the National Association of City Transportation Officials (2016), bus frequency is based on the volume of expected passengers. When the passengers are fewer than 100 per hour, the frequency of buses is 15 minutes per hour. If there are 500 to 2,000 passengers per hour, the departure frequency is 2-6 minutes. Though Translink and New York’s transportation systems are designed differently, they are based on similar pricing systems. Considering maintenance costs, the standard employed by New York should demonstrate the external validation for Vancouver’s transportation system. In other words, the maintenance of public transit could prioritize profitability over arriving on time, which will challenge the schedules of students who depend heavily on public transit. </span></p><p><span>Map of frequency of buses stopping at each bus stop</span></p><iframe src=" https://ubc-geos472-spring2024.github.io/group2-finalproject-web/map_visual.html" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe><p><span>This map shows the frequency of bus departures at each bus stop in the city. The control panel change the heatmap layer for different time zone</span></p><ol><li><p><strong><span>Future Development and Impact</span></strong></p></li></ol><p><span>Some steps have already been taken to attempt to reduce the burden on the transit system and convey students more efficiently to and from campus. Since the 2001 winter session, class start times have been staggered so that some morning classes begin at 8:30 am and some at 9 am (University of British Columbia - Vancouver Campus, 2022). This spread out the morning peak demand, allowing 12% more transit trips per day to be accommodated by the same number of buses (University of British Columbia - Vancouver Campus, 2022). In 2003, the student U-Pass was introduced; the cost of the pass is included in student fees (opting out is an option) and it gives students unlimited access to TransLink buses, Skytrain, and Seabus, along with discounted fares on the West Coast Express (University of British Columbia - Vancouver Campus, 2022). UBC has also worked with Translink to increase service to UBC, adding more frequent buses on the 99 Bline, and adding the 33 and R4 lines (though in recent years, service has been slightly reduced on the 99 Bline, because according to Translink, there was a greater need for increased service on other routes and remote work slightly reduced the number of commuters on this line (Shepert, 2023)). Bus lanes have also been built on Wesbrook Mall, a busy transit corridor on the east side of campus, to allow buses to bypass traffic. But despite these improvements, routes to UBC still carry the highest passenger volumes in the region per year, and many students still struggle to get to class on time as they are passed by full buses or are stuck waiting at stops for extended periods (University of British Columbia - Vancouver Campus, 2022).</span></p><p><span>The Broadway Subway Project marks a significant step forward in Metro Vancouver’s public transit infrastructure, aiming to address the area’s growing transport needs and distinct lack of rapid transit options. As one of North America’s busiest bus corridors, the Broadway Corridor currently supports upwards of 100,000 trips daily, serving key economic, residential, and healthcare facilities (TransLink, 2024). With the region expecting an influx of approximately 1 million new residents and 600,000 new jobs over the next three decades, the Broadway Subway Project, scheduled for completion in 2026, extends the Millenium Line from VCC-Clark Station to Arbutus (TransLink, 2024). The line will feature a 700m long elevated track before moving underground to add 6 new stations along a 5 km stretch under Broadway (TransLink, 2024). This project will initially end at Arbutus where UBC students will be expected to continue employing B-Line bus services to reach campus (Translink, 2024).</span></p><p><span>Given the substantial commuting challenges faced by UBC students, extending the SkyTrain to UBC emerges as a much-needed solution for alleviating these travel burdens. The need for this extension is highlighted by the 2019 “Rail to UBC Rapid Transit Study”, conducted by McElhanney Consulting Services Ltd., where significant increases in ridership are projected due to the university’s continuous growth and expansion. The study expects that extending the SkyTrain to serve UBC’s campus could support over 118,800 boardings per day on the Arbutus-UBC segment alone by 2045 (McElhanney Consulting Services Ltd., 2019). This massive increase in carrying capacity offers a direct, reliable alternative to current bus services which often operate above maximum capacity during peak times. By connecting one of the largest educational and employment hubs in the region to the broader Metro Vancouver public transit infrastructure, the SkyTrain extension to UBC would provide an increased frequency of transit trips to campus, improving accessibility for students and employees alike. While current plans for the Millennium Line UBC extension are merely hypothetical (TransLink, 2024), the introduction of high-capacity rapid transit would not only improve the daily commute for thousands of students but also play a critical role in broader urban planning strategies. Specifically, transit-oriented developments like the Millennium Line UBC extension have the potential to relieve the demand for on-campus housing by making other areas of Vancouver more accessible to UBC students.</span></p><p><span>Map of future transit expansion plans</span></p><iframe src="https://ubc-geos472-spring2024.github.io/group2-finalproject-web/Expansion Map
+/expansion_map.html
+" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe><p><span>This map showcases the locations of stations associated with the proposed Broadway Subway Plan, as well as hypothetical station locations of the potential Millennium Line UBC Expansion. Users can toggle between the aforementioned development projects and current SkyTrain station locations to better understand the state of UBC’s SkyTrain access.</span></p><ol><li><p><strong><span>Conclusion</span></strong></p></li></ol><p><span>The exploration into the UBC commute has highlighted the vital intersection between rapid transit options and student well-being. With the majority of UBC’s student body commuting to campus and thus relying heavily on Vancouver’s transit infrastructure, the availability, accessibility and efficiency of public transit options play a major role in their daily lives. The ongoing Broadway Subway Project and proposed extension of the Millenium Line to UBC are encouraging signs for the future. By providing reliable, rapid transport for the masses, these projects have the potential to support UBC’s growing student body. Moving forward, it is vital that planners and policymakers prioritize transit advancements to ensure the transit system can support the demands of the region.</span></p><p><span>References</span></p><p><span>McElhanney Consulting Services Ltd. (2019). Rail to UBC Rapid Transit Study. Retrieved from </span><a href='https://www.translink.ca/-/media/translink/documents/plans-and-projects/rapid-transit/skytrain-to-ubc/rail_to_ubc_rapid_transit_study_jan_2019.pdf' target='_blank' class='url'>https://www.translink.ca/-/media/translink/documents/plans-and-projects/rapid-transit/skytrain-to-ubc/rail_to_ubc_rapid_transit_study_jan_2019.pdf</a><span> </span></p><p><span>Nguyen, A., Hicks, E., &amp; Wyton, M. (2017, October 31). Our ‘Big One’: Lifting the crushing weight of the Vancouver housing crisis. </span><em><span>The Ubyssey</span></em><span>. Retrieved from </span><a href='https://www.ubyssey.ca/features/our-big-one-vancouver-housing-crisis-feature/' target='_blank' class='url'>https://www.ubyssey.ca/features/our-big-one-vancouver-housing-crisis-feature/</a><span> </span></p><p><span>Shepert, E. (2023, January 4). Here is why TransLink is reducing service on Metro Vancouver’s busiest bus route. </span><em><span>Vancouver Is Awesome</span></em><span>. Retrieved from </span><a href='https://www.vancouverisawesome.com/local-news/vancouver-weather-99-b-line-ubc-bus-translink-632727' target='_blank' class='url'>https://www.vancouverisawesome.com/local-news/vancouver-weather-99-b-line-ubc-bus-translink-632727</a><span> </span></p><p><span>Student Services. (2019, July 9). Commuting 101. Retrieved from </span><a href='https://students.ubc.ca/ubclife/commuting-101' target='_blank' class='url'>https://students.ubc.ca/ubclife/commuting-101</a><span> </span></p><p><span>TransLink (2023). 2023 Bus Speed and Reliability Report. Retrieved from </span><a href='https://www.translink.ca/-/media/translink/documents/plans-and-projects/bus-projects/bus-speed-and-reliability/2023_bsr_report_without_appendices.pdf' target='_blank' class='url'>https://www.translink.ca/-/media/translink/documents/plans-and-projects/bus-projects/bus-speed-and-reliability/2023_bsr_report_without_appendices.pdf</a><span> </span></p><p><span>TransLink. (2024). </span><em><span>99 Commercial-Broadway/UBC (B-Line)</span></em><span>. </span><a href='https://www.translink.ca/schedules-and-maps/route/99/direction/1/schedule' target='_blank' class='url'>https://www.translink.ca/schedules-and-maps/route/99/direction/1/schedule</a></p><p><span>TransLink. (2024).</span><em><span>R4 41st Ave</span></em><span>. </span><a href='https://www.translink.ca/schedules-and-maps/route/r4/direction/1/schedule' target='_blank' class='url'>https://www.translink.ca/schedules-and-maps/route/r4/direction/1/schedule</a></p><p><span>TransLink. (2024). Millennium Line UBC Extension. Retrieved from </span><a href='https://www.translink.ca/plans-and-projects/projects/rapid-transit-projects/millennium-line-ubc-extension' target='_blank' class='url'>https://www.translink.ca/plans-and-projects/projects/rapid-transit-projects/millennium-line-ubc-extension</a><span> </span></p><p><span>Translin. (2024). </span></p><p><span>TransLink. (2024). Broadway Subway Project. Retrieved from </span><a href='https://www.translink.ca/plans-and-projects/projects/rapid-transit-projects/broadway-subway-project' target='_blank' class='url'>https://www.translink.ca/plans-and-projects/projects/rapid-transit-projects/broadway-subway-project</a><span> </span></p><p><span>Transit Frequency &amp; volume | National Association of City Transportation Officials. (2016, May 17). National Association of City Transportation Officials. </span><a href='https://nacto.org/publication/transit-street-design-guide/introduction/service-context/transit-frequency-volume/' target='_blank' class='url'>https://nacto.org/publication/transit-street-design-guide/introduction/service-context/transit-frequency-volume/</a></p><p><span>University of British Columbia – Vancouver Campus. (2022). Transportation status report Fall 2022. Retrieved from </span><a href='https://planning.ubc.ca/sites/default/files/2023-06/UBC2022-TransportationStatusReport-FINAL.pdf' target='_blank' class='url'>https://planning.ubc.ca/sites/default/files/2023-06/UBC2022-TransportationStatusReport-FINAL.pdf</a><span> </span></p><p><span>Vescera, Z. (2018, February 13). Going the distance: UBC’s commuters face challenges beyond distance. </span><em><span>The Ubyssey</span></em><span>. Retrieved from </span><a href='https://ubyssey.ca/magazine/features-going-the-distance-commuters/' target='_blank' class='url'>https://ubyssey.ca/magazine/features-going-the-distance-commuters/</a><span> </span></p></div></div>
+</body>
+</html>
   </body>
 </html>

@@ -16,10 +16,14 @@ https://ubc-geos472-spring2024.github.io/group2-finalproject-web/current_transpo
 
 The Isochrone Map:
 
-https://ubc-geos472-spring2024.github.io/group2-finalproject-web/isochrone_map.html![isochrone](image/isochrone.PNG)
+https://ubc-geos472-spring2024.github.io/group2-finalproject-web/isochrone_map.html
+
+![isochrone](image/isochrone.PNG)
 
 https://ubc-geos472-spring2024.github.io/group2-finalproject-web/map_visual.html
 
-![heatmap](image/heatmap.PNG)The Map of Future expansion:
+![heatmap](image/heatmap.PNG)
+
+The Map of Future expansion:
 
 https://ubc-geos472-spring2024.github.io/group2-finalproject-web/Expansion%20Map/expansion_map.html![Expansion](image/Expansion.PNG)
